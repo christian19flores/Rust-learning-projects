@@ -1,9 +1,14 @@
-use std::process;
+mod args;
 
-use currency_convert::Config;
+use std::process;
+use args::Args;
+use ROT_13::Config;
 
 fn main() {
-    let config = Config::build().unwrap_or_else(|err| {
+    let args = Args::new();
+    println!("{:?}", args);
+
+    let config = Config::build(args.option, args.text).unwrap_or_else(|err| {
         println!("Problem parsing arguments: {err}");
         process::exit(1);
     });
